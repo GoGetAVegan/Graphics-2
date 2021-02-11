@@ -31,6 +31,11 @@
 //	-> get color from sampler at texture coordinate
 //	-> assign color to output
 
+
+in vec2 vTextCoord;
+
+uniform vec4 uColor;
+
 layout (location = 0) out vec4 rtFragColor;
 
 void main()
