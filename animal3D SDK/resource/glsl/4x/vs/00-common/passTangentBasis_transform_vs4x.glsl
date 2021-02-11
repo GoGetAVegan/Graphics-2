@@ -24,7 +24,7 @@
 
 #version 450
 
-// ****TO-DO: 
+// ****DONE: 
 //	-> declare matrices
 //		(hint: not MVP this time, made up of multiple; see render code)
 //	-> transform input position correctly, assign to output
@@ -37,15 +37,27 @@
 //	-> assign texture coordinate to varying
 
 layout (location = 0) in vec4 aPosition;
+layout (location = 2) in vec4 aNormal;
 
 flat out int vVertexID;
 flat out int vInstanceID;
 
+uniform mat4 uMV, uP, uMV_nrm;
+
+out vec4 vPosition;
+out vec4 vNormal;
+
 void main()
 {
 	// DUMMY OUTPUT: directly assign input position to output position
-	gl_Position = aPosition;
+	//gl_Position = aPosition;
 
+	vPosition = uMV * aPosition;//camera space
+	vNormal = uMV_nrm * aNormal;//camera space
+
+
+	gl_Position = uP * vPosition; //clip space
+	
 	vVertexID = gl_VertexID;
 	vInstanceID = gl_InstanceID;
 }
